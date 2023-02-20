@@ -28,4 +28,14 @@ class StoreScheduleRequest extends FormRequest
             'status' => ['required'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'title' => '予定タイトル',
+            'description' => '予定詳細',
+            'deadline' => '期限日',
+            'status' => '重要度'
+        ];
+    }
 }

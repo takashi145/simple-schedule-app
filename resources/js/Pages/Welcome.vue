@@ -12,7 +12,7 @@ defineProps({
 <template>
     <Head title="Welcome" />
 
-    <div class="min-h-screen">
+    <div class="">
         <div v-if="canLogin" class="fixed top-0 right-0 p-6 text-right">
             <Link
                 v-if="$page.props.auth.user"
@@ -37,13 +37,20 @@ defineProps({
             </template>
         </div>
 
-        <div class="mt-32">
+        <div class="mt-28">
             <div class="flex justify-center">
-                <img src="/images/logo.png" alt="">
+                <img src="/images/logo.png" class="">
             </div>
             <div class="text-center">
-                <button class="text-white bg-indigo-400 hover:bg-indigo-600 py-3 px-8 rounded">始める</button>
+                <p class="text-lg mb-8">シンプルな予定管理アプリ</p>
+                <Link :href="route('schedule.index')" class="text-white bg-indigo-400 hover:bg-indigo-600 py-3 px-8 rounded">始める</Link>
             </div>
         </div>
     </div>
 </template>
+
+<style>
+body {
+    background-color: rgba(183, 200, 220, 0.422);
+}
+</style>

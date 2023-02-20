@@ -51,12 +51,12 @@ const show_schedule = value => {
                 <div class="text-end mx-3">
                   <Link :href="route('schedule.create')" class="text-blue-400 underline">予定を追加</Link>
                 </div>
-                <div class="flex justify-between m-2">
-                  <button @click="prev" class="underline px-4 py-3 rounded">←7日前</button>
-                  <button @click="next" class="underline px-4 py-3 rounded">7日後→</button>
+                <div class="flex justify-between mx-4 mt-4">
+                  <button @click="prev" class="underline px-4 py-3 rounded">←Prev</button>
+                  <button @click="next" class="underline px-4 py-3 rounded">Next→</button>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:p-8">
-                  <details v-for="(items, key) in schedules" :key="key" class="border-b my-8 shadow-lg p-3 bg-gray-100" open>
+                <div class="overflow-hidden shadow-sm sm:rounded-lg px-3 md:px-8 pb-12">
+                  <details v-for="(items, key) in schedules" :key="key" class="border-b mb-8 shadow-lg p-3 bg-gray-100" open>
                     <summary class="flex justify-between cursor-pointerpb-3 pb-3 cursor-pointer">
                       <div class="text-lg">
                         {{ key }} <span v-if="now === key" class="bg-green-400 text-white p-1 text-sm rounded">Today</span>
@@ -66,7 +66,7 @@ const show_schedule = value => {
                       </div>
                     </summary>
                     <div class="border-t-2 p-3 bg-gray-50">
-                      <button v-for="value in items" :key="value.id" @click="show_schedule(value)" class="flex flex-col md:flex-row justify-between w-full mb-6 text-sm text-start hover:cursor-pointer hover:underline">
+                      <button v-for="value in items" :key="value.id" @click="show_schedule(value)" class="flex flex-col md:flex-row justify-between w-full mb-6 text-xs md:text-sm text-start hover:cursor-pointer hover:underline border-b pb-3">
                         <div class="flex items-center">
                           <span v-if="value.status === 1" class="mr-1">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
