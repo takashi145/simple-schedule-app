@@ -56,7 +56,7 @@ class ScheduleController extends Controller
     /**
      * 予定登録画面を表示
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
         return Inertia::render('Schedule/Create');
     }

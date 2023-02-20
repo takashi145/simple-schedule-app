@@ -46,11 +46,14 @@ const show_schedule = value => {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">ScheduleList</h2>
         </template>
 
-        <div class="py-12 mb-8">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex justify-between m-3">
-                  <button @click="prev" class="hover:underline bg-gray-300 px-4 py-3 rounded">7日前</button>
-                  <button @click="next" class="hover:underline bg-gray-300 px-4 py-3 rounded">7日後</button>
+        <div class="py-4 mb-8">
+            <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+                <div class="text-end mx-3">
+                  <Link :href="route('schedule.create')" class="text-blue-400 underline">予定を追加</Link>
+                </div>
+                <div class="flex justify-between m-2">
+                  <button @click="prev" class="underline px-4 py-3 rounded">←7日前</button>
+                  <button @click="next" class="underline px-4 py-3 rounded">7日後→</button>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:p-8">
                   <details v-for="(items, key) in schedules" :key="key" class="border-b my-8 shadow-lg p-3 bg-gray-100" open>
@@ -97,9 +100,9 @@ const show_schedule = value => {
           <ShowSchedule :schedule="schedule" />
         </Modal>
 
-        <div class="p-3 w-full fixed bottom-0 bg-gray-300">
-          <label for="">開始時刻指定: </label>
-          <input type="date" @change="changeDate()" class="w-full mb-3">
+        <div class="p-3 w-full fixed bottom-0 flex flex-col justify-center bg-gray-300 border-t-4">
+          <label for="" class="mx-auto">日付指定: </label>
+          <input type="date" @change="changeDate()" v-model="from" class="w-full md:w-2/3 lg:w-1/3 mb-3 rounded shadow mx-auto border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
         </div>
     </AuthenticatedLayout>
 </template>
