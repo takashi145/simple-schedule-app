@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
+    Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
 });
 
 require __DIR__.'/auth.php';

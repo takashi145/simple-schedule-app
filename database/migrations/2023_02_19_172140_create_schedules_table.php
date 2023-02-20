@@ -17,7 +17,7 @@ return new class extends Migration
             ->constrained()
             ->cascadeOnDelete();
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->dateTime('deadline');
             $table->tinyInteger('status');
             $table->timestamps();

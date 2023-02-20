@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreScheduleRequest;
 use App\Models\Schedule;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -47,6 +51,30 @@ class ScheduleController extends Controller
             'prev' => Carbon::parse($from)->subDays(7)->format('Y-m-d'),
             'next' => Carbon::parse($from)->addDay(7)->format('Y-m-d')
         ]);
+    }
+
+    /**
+     * 予定登録画面を表示
+     */
+    public function create(): Response
+    {
+        return Inertia::render('Schedule/Create');
+    }
+
+    /**
+     * 予定を保存
+     */
+    public function store(StoreScheduleRequest $request): RedirectResponse
+    {
+        Schedule::create([
+            'user_id' => Auth::id(),
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'deadline' => $request->input('deadline'),
+            'status' => $request->input('status'),
+        ]);
+
+        return Redirect::route('schedule.index');
     }
 
 
