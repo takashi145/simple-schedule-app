@@ -15,7 +15,7 @@ use Inertia\Response;
 class ScheduleController extends Controller
 {
     /**
-     * 指定された日付から1週間分のスケジュールを表示
+     * 指定された日付から７日分のスケジュールを表示
      */
     public function index(Request $request): Response
     {
@@ -27,7 +27,7 @@ class ScheduleController extends Controller
 
         $to = Carbon::parse($from)->copy()->addDay(7)->format('Y-m-d');
 
-        $schedules = Schedule::whereBetween('deadline', [$from, $to])
+        $schedules = Auth::user()->schedules()->whereBetween('deadline', [$from, $to])
             ->orderBy('deadline')
             ->get()
             ->groupBy(function ($row) {
