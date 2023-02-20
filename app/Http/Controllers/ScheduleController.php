@@ -18,11 +18,10 @@ class ScheduleController extends Controller
         $from = $request->query('from');
 
         if(!$this->isDate($from)) {
-            $from = now();
+            $from = now()->format('Y-m-d');
         }
-        
-        $from_copy = new Carbon($from);
-        $to = $from_copy->addDay(6);
+
+        $to = Carbon::parse($from)->copy()->addDay(7)->format('Y-m-d');
 
         $schedules = Schedule::whereBetween('deadline', [$from, $to])
             ->orderBy('deadline')
@@ -31,8 +30,22 @@ class ScheduleController extends Controller
                 return Carbon::parse($row->deadline)->format('Y-m-d');
             });
 
+        $schedules2 = array();
+
+        $date = Carbon::parse($from)->copy()->format('Y-m-d');
+        for($i=0; $i<7; $i++) {
+            if(!isset($schedules[$date])) {
+                $schedules2[$date] = [];
+            }else {
+                $schedules2[$date] = $schedules[$date];
+            }
+            $date = Carbon::parse($date)->addDays(1)->format('Y-m-d');
+        }
+
         return Inertia::render('Schedule/Index', [
-            'schedules' => $schedules
+            'schedules' => $schedules2,
+            'prev' => Carbon::parse($from)->subDays(7)->format('Y-m-d'),
+            'next' => Carbon::parse($from)->addDay(7)->format('Y-m-d')
         ]);
     }
 

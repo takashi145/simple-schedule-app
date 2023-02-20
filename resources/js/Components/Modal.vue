@@ -14,6 +14,10 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    title: {
+        type: String,
+        default: 'Modal'
+    }
 });
 
 const emit = defineEmits(['close']);
@@ -62,7 +66,7 @@ const maxWidthClass = computed(() => {
 <template>
     <teleport to="body">
         <transition leave-active-class="duration-200">
-            <div v-show="show" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
+            <div v-show="show" @click="emit('close_modal')" class="fixed inset-0 md:top-40 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
                 <transition
                     enter-active-class="ease-out duration-300"
                     enter-from-class="opacity-0"
@@ -86,9 +90,21 @@ const maxWidthClass = computed(() => {
                 >
                     <div
                         v-show="show"
-                        class="mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto"
+                        class="mb-6 bg-white rounded-lg overflow-auto shadow-xl transform transition-all sm:w-full sm:mx-auto max-h-full h-modal"
                         :class="maxWidthClass"
                     >
+                        <!--header-->
+                        <div class="flex justify-between items-center border-b mb-3">
+                            <h3 class="text-lg mx-3 font-semibold text-gray-800">
+                                {{ title }}
+                            </h3>
+                            <button @click="emit('close')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 m-3 text-gray-600 hover:text-gray-800 hover:cursor-pointer hover:scale-105">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>    
+                            </button>
+                           
+                        </div>
                         <slot v-if="show" />
                     </div>
                 </transition>
