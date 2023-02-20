@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Foundation\Application;
@@ -25,6 +26,9 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/auth/redirect', [ProviderController::class, 'redirect']);
+Route::get('/auth/callback', [ProviderController::class, 'callback']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
