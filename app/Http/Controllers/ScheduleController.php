@@ -78,9 +78,34 @@ class ScheduleController extends Controller
     }
 
     /**
+     * 予定編集画面を表示
+     */
+    public function edit(Schedule $schedule): Response
+    {
+        return Inertia::render('Schedule/Edit', [
+            'schedule' => $schedule
+        ]);
+    }
+
+    /**
+     * 予定を更新
+     */
+    public function update(Request $request, Schedule $schedule): RedirectResponse
+    {
+        $schedule->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'deadline' => $request->input('deadline'),
+            'status' => $request->input('status'),
+        ]);
+
+        return Redirect::route('schedule.index');
+    }
+
+    /**
      * 指定された予定を削除
      */
-    public function destroy(Schedule $schedule)
+    public function destroy(Schedule $schedule): RedirectResponse
     {
         $schedule->delete();
         return Redirect::route('schedule.index');

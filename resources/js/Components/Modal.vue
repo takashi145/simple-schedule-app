@@ -66,7 +66,7 @@ const maxWidthClass = computed(() => {
 <template>
     <teleport to="body">
         <transition leave-active-class="duration-200">
-            <div v-show="show" @click="emit('close_modal')" class="fixed inset-0 md:top-40 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
+            <div v-show="show" @click="emit('close_modal')" class="fixed inset-0 md:top-32 overflow-y-auto px-4 py-6 sm:px-0 z-50" scroll-region>
                 <transition
                     enter-active-class="ease-out duration-300"
                     enter-from-class="opacity-0"

@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
     Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
     Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::get('/schedule/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+    Route::put('/schedule/{schedule}', [ScheduleController::class, 'update'])->name('schedule.update');
     Route::delete('/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('schedule.delete');
 });
 
