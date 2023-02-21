@@ -77,6 +77,15 @@ class ScheduleController extends Controller
         return Redirect::route('schedule.index');
     }
 
+    /**
+     * 指定された予定を削除
+     */
+    public function destroy(Schedule $schedule)
+    {
+        $schedule->delete();
+        return Redirect::route('schedule.index');
+    }
+
 
     // 日付が正しいか確認
     private function isDate($date) {

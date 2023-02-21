@@ -4,7 +4,6 @@ import { Head, router, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { formatDate } from '@/date';
 import ShowSchedule from '@/Components/schedule/ShowSchedule.vue';
-import Modal from '@/Components/Modal.vue';
 
 const props = defineProps({
   schedules: Object,
@@ -92,13 +91,7 @@ const show_schedule = value => {
             </div>
         </div>
 
-        <Modal 
-          :show="show" 
-          @close="show = false" 
-          title="予定詳細"
-        >
-          <ShowSchedule :schedule="schedule" />
-        </Modal>
+        <ShowSchedule @close="show=false" :show="show" :schedule="schedule" />
 
         <div class="p-3 w-full fixed bottom-0 flex flex-col justify-center bg-gray-300 border-t-4">
           <label for="" class="mx-auto">日付指定: </label>

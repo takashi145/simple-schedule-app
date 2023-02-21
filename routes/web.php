@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
     Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
     Route::post('/schedule', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::delete('/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('schedule.delete');
 });
 
 require __DIR__.'/auth.php';
