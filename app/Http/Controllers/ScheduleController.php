@@ -14,6 +14,12 @@ use Inertia\Response;
 
 class ScheduleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Schedule::class, 'schedule');
+    }
+
     /**
      * 指定された日付から７日分のスケジュールを表示
      */
@@ -21,7 +27,7 @@ class ScheduleController extends Controller
     {
         $from = $request->query('from');
 
-        if(!$this->isDate($from)) {
+        if(!$this->isValidDate($from)) {
             $from = now()->format('Y-m-d');
         }
 
@@ -113,7 +119,7 @@ class ScheduleController extends Controller
 
 
     // 日付が正しいか確認
-    private function isDate($date) {
+    private function isValidDate($date) {
         if(!preg_match('/^[1-9]{1}[0-9]{0,3}-[0-9]{1,2}-[0-9]{1,2}$/', $date)){
             return false;
         }
