@@ -33,7 +33,6 @@ const update = () => {
         </template>
 
         <div class="mb-8">
-          {{ schedule.deadline }}
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
               <div class="m-3">
                 <Link :href="route('schedule.index')" class="text-blue-400 hover:text-blue-600 hover:underline">←戻る</Link>

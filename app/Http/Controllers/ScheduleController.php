@@ -45,7 +45,7 @@ class ScheduleController extends Controller
         $date = Carbon::parse($from)->copy()->format('Y-m-d');
         for($i=0; $i<7; $i++) {
             if(!isset($schedules[$date])) {
-                $schedules2[$date] = [];
+                $schedules2[$date] = array();
             }else {
                 $schedules2[$date] = $schedules[$date];
             }
@@ -64,7 +64,9 @@ class ScheduleController extends Controller
      */
     public function create(Request $request): Response
     {
-        return Inertia::render('Schedule/Create');
+        return Inertia::render('Schedule/Create', [
+            'date' => $request->query('date')
+        ]);
     }
 
     /**
@@ -128,7 +130,6 @@ class ScheduleController extends Controller
                 'message' => '予定を削除しました。'
             ]);
     }
-
 
     // 日付が正しいか確認
     private function isValidDate($date) {

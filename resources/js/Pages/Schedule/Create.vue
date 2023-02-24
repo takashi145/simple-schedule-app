@@ -5,14 +5,15 @@ import { defineProps } from 'vue';
 import InputError from '@/Components/InputError.vue';
 import { formatDateTime } from '@/date';
 
-defineProps({
-  errors: Object
+const props = defineProps({
+  errors: Object,
+  date: Date,
 })
 
 const form = useForm({
   title: '',
   description: '',
-  deadline: formatDateTime(new Date()),
+  deadline: props.date? formatDateTime(new Date(props.date)) : formatDateTime(new Date()),
   status: 1,
 })
 

@@ -5,9 +5,12 @@ export const formatDate = (dt) => {
   return (y + '-' + m + '-' + d);
 }
 
-export const formatDateTime = (dt) => {
-  const date = formatDate(dt);
+export const formatTime = (dt) => {
   var h = dt.getHours().toString().padStart(2, '0');
   var m = dt.getMinutes().toString().padStart(2, '0');
-  return (date + 'T' + h + ':' + m);
+  return (h + ':' + m);
+}
+
+export const formatDateTime = (dt) => {
+  return (formatDate(dt) + 'T' + formatTime(dt));
 }

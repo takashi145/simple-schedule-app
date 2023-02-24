@@ -2,8 +2,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router, Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import { formatDate } from '@/date';
+import { formatDate, formatTime } from '@/date';
 import ShowSchedule from '@/Components/schedule/ShowSchedule.vue';
+import StatusComponent from '@/Components/schedule/StatusComponent.vue';
 
 const props = defineProps({
   schedules: Object,
@@ -51,8 +52,8 @@ const show_schedule = value => {
                   <Link :href="route('schedule.create')" class="text-blue-400 underline">予定を追加</Link>
                 </div>
                 <div class="flex justify-between mx-4 mt-4">
-                  <button @click="prev" class="underline px-4 py-3 rounded">←Prev</button>
-                  <button @click="next" class="underline px-4 py-3 rounded">Next→</button>
+                  <button @click="prev" class="underline px-4 py-3 rounded">←前</button>
+                  <button @click="next" class="underline px-4 py-3 rounded">次→</button>
                 </div>
                 <div class="overflow-hidden shadow-sm sm:rounded-lg px-3 md:px-8 pb-12">
                   <details v-for="(items, key) in schedules" :key="key" class="border-b mb-8 shadow-lg p-3 bg-gray-100" open>
@@ -66,25 +67,25 @@ const show_schedule = value => {
                     </summary>
                     <div class="border-t-2 p-3 bg-gray-50">
                       <button v-for="value in items" :key="value.id" @click="show_schedule(value)" class="flex flex-col md:flex-row justify-between w-full mb-6 text-xs md:text-sm text-start hover:cursor-pointer hover:underline border-b pb-3">
-                        <div class="flex items-center">
-                          <span v-if="value.status === 1" class="mr-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                            </svg>
-                          </span>
-                          <span v-if="value.status === 2" class="mr-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-yellow-500">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                            </svg>
-                          </span>
-                          <span v-if="value.status === 3" class="mr-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-green-500">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                          </span>
-                          {{ value.title }}  
+                        <div class="w-full flex flex-col">
+                          <div class="text-gray-700 underline mb-2">
+                            {{ formatTime(new Date(value.deadline)) }}
+                          </div>
+                          <div class="flex items-center ml-3">
+                            <StatusComponent :status="value.status" />
+                            {{ value.title }}  
+                          </div>
                         </div>
                       </button>
+                    </div>
+                    <div class="text-end">
+                      <Link 
+                        :href="route('schedule.create')" 
+                        :data="{date: key}"
+                        class="text-sm text-blue-400 hover:underline"
+                      >
+                        追加
+                      </Link>
                     </div>
                   </details>
                 </div>
