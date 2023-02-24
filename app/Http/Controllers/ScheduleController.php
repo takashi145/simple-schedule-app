@@ -80,7 +80,11 @@ class ScheduleController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return Redirect::route('schedule.index');
+        return Redirect::route('schedule.index')
+            ->with('flash', [
+                'status' => 'success',
+                'message' => '予定を追加しました。'
+            ]);
     }
 
     /**
@@ -105,7 +109,11 @@ class ScheduleController extends Controller
             'status' => $request->input('status'),
         ]);
 
-        return Redirect::route('schedule.index');
+        return Redirect::route('schedule.index')
+            ->with('flash', [
+                'status' => 'success',
+                'message' => '予定を更新しました。'
+            ]);
     }
 
     /**
@@ -114,7 +122,11 @@ class ScheduleController extends Controller
     public function destroy(Schedule $schedule): RedirectResponse
     {
         $schedule->delete();
-        return Redirect::route('schedule.index');
+        return Redirect::route('schedule.index')
+            ->with('flash', [
+                'status' => 'error',
+                'message' => '予定を削除しました。'
+            ]);
     }
 
 
