@@ -49,24 +49,24 @@ const show_schedule = value => {
         <div class="py-4 mb-8">
             <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
                 <div class="text-end mx-3">
-                  <Link :href="route('schedule.create')" class="text-blue-400 underline">予定を追加</Link>
+                  <Link :href="route('schedule.create')" class="text-lg text-blue-400 hover:text-blue-500 underline">+予定を追加</Link>
                 </div>
                 <div class="flex justify-between mx-4 mt-4">
                   <button @click="prev" class="underline px-4 py-3 rounded">←前</button>
                   <button @click="next" class="underline px-4 py-3 rounded">次→</button>
                 </div>
                 <div class="overflow-hidden shadow-sm sm:rounded-lg px-3 md:px-8 pb-12">
-                  <details v-for="(items, key) in schedules" :key="key" class="border-b mb-8 shadow-lg p-3 bg-gray-100" open>
+                  <details v-for="(items, key) in schedules" :key="key" class="border-b mb-12 shadow-lg p-3 bg-gray-100" open>
                     <summary class="flex justify-between cursor-pointerpb-3 pb-3 cursor-pointer">
                       <div class="text-lg">
                         {{ key }} <span v-if="now === key" class="bg-green-400 text-white p-1 text-sm rounded">Today</span>
                       </div>
                       <div class="text-gray-700">
-                        {{ items.length }} tasks
+                        予定：{{ items.length }} 
                       </div>
                     </summary>
-                    <div class="border-t-2 p-3 bg-gray-50">
-                      <button v-for="value in items" :key="value.id" @click="show_schedule(value)" class="flex flex-col md:flex-row justify-between w-full mb-6 text-xs md:text-sm text-start hover:cursor-pointer hover:underline border-b pb-3">
+                    <div v-if="items.length >= 1" class="border-t-2 p-3 bg-gray-50">
+                      <button v-for="value in items" :key="value.id" @click="show_schedule(value)" class="flex flex-col md:flex-row justify-between w-full mb-6 lg:text-lg text-start hover:cursor-pointer hover:underline border-b pb-3">
                         <div class="w-full flex flex-col">
                           <div class="text-gray-700 underline mb-2">
                             {{ formatTime(new Date(value.deadline)) }}
@@ -78,6 +78,10 @@ const show_schedule = value => {
                         </div>
                       </button>
                     </div>
+                    <div v-else class="border-t-2 p-3 bg-gray-50">
+                      予定がありません
+                    </div>
+
                     <div class="text-end">
                       <Link 
                         :href="route('schedule.create')" 
